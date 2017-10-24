@@ -1,0 +1,3 @@
+xiangQ, shifrinaD, petersS -- 2017-10-24 13:04 
+Created app.py and started creating the welcome page, log-in page, and register page (for new users). 
+
