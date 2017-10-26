@@ -8,16 +8,24 @@
 		<h1>Current Stories</h1>
 		<table>
 			<thead>
-				List of stories
+				List of stories <!-- Formatting should improve -->
 			</thead>
 
 			<tbody>
+				<!-- This jinja stuff makes the table formatted correctly -->
+				<!-- The idea of it is to make a table that generates from just inputing a list of stories -->
+					<!--
+						ABOUT THE stories OBJECT
+						[
+							{'title':'i am a title', 'text':'this is the most recent changed', 'person':'most recent adder'},
+							{'title':'title again', 'text':'I am content', 'person':'storywriter34'}
+						]
+			 		-->
 				{% if stories %}
 					{% set vars = {'col':0, 'row':0} %}
 					<tr>
 					{% for story in stories %}
-					story
-						{% if vars.col == 4 %}
+						{% if vars.col == 4 %} <!-- 4 is the number of columns, you can change it -->
 							{% if vars.update({'col': 0}) %} {% endif %}
 							{% set rup = vars.row + 1 %}
 							{% if vars.update({'row': rup}) %} {% endif %}
