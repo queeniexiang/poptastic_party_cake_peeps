@@ -10,7 +10,7 @@ app.secret_key = os.urandom(32)
 def landing():
 	print session;
 	if "username" in session:
-		return redirect("/listofstories")
+		return redirect("/homepage")
 	return render_template("index.html")
 
 
@@ -28,7 +28,7 @@ def logged(user = ""):
 			        print "THE PASSWORD HAS BEEN VALIDATED \n\n"
 				session["username"] = #user_username
 				print "Does we makes it?\n\n"
-				return redirect("/listofstories")
+				return redirect("/homepage")
 			else:
 			        flash("Incorrect password, please try again.") 
 		else:
@@ -65,9 +65,15 @@ def register():
 def u_messed_up():
     return render_template("errorpage.html", bad = request.args.get("err"))'''
 
-app.route("/listofstories")
+app.route("/homepage")
 def homepage():
-        return render_template('listofstories.html', stories=[1,2,3,4,5,6,7,8,9])
+        #return render_template('homepage.html')
+
+
+#IF user chooses to read stories:         
+app.route("/listofstories") 
+def read():
+        return render_template('listofstoriess.html', stories=[1,2,3,4,5,6,7,8,9])
 
 
 if __name__ == "__main__":
