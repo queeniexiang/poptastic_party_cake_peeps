@@ -15,11 +15,11 @@ This will allow you to clone our repository.
 <pre><code> cd poptastic_party_cake_peeps </code></pre>
 
 4. Now that you're in our directory, please verify that you have the following items:
-*app.py file
-*template folder 
-*static folder
-*util folder
-*data folder 
+* app.py file
+* template folder 
+* static folder
+* util folder
+* data folder 
 
 5. Type the following in your terminal to start the web-app:
 <pre><code> python app.py </code></pre>
