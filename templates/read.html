@@ -2,10 +2,14 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>{{ title }}</title>
 	</head>
 	<body>
-
+		<h1>{{ title }}</h1>
+		{% for update in updates %}
+			<h2>{{ update.user }}:</h2>
+			<p>{{ update.text }}</p>
+		{% endfor %}
 	</body>
 </html>
 

@@ -13,7 +13,7 @@ def landing():
 		return redirect("/")
 	return render_template("index.html")
 
-'''@app.route("/loggedin") 
+'''@app.route("/loggedin")
 def pullup():
 	print session;
 	print "WE MADE IT \n\n"
@@ -46,6 +46,17 @@ def logged(user = ""):
 	#If you already have a username, it brings you here
 	else:
 		return render_template("ushallpass.html", username = session["username"])
+
+@app.route('/shainatesting')
+def testing():
+	testmode = "list"
+	if testmode == "read":
+		return render_template('read.html',title="this is a title", updates=[{'user':"Caligula", 'text': 'idk roman emperors are cool'}, {'user':'alexander', 'text':'he was kind of great'}])
+	if testmode == "success":
+		return render_template('success.html', whathappened="updated")
+	if testmode == "list":
+		return render_template('listofstories.html', stories=[1,2,3,4,5,6,7,8,9])
+	return "nope"
 
 @app.route("/register")
 def register():

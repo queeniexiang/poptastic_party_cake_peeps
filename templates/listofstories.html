@@ -5,7 +5,34 @@
 		<title></title>
 	</head>
 	<body>
+		<h1>Current Stories</h1>
+		<table>
+			<thead>
+				List of stories
+			</thead>
 
+			<tbody>
+				{% if stories %}
+					{% set vars = {'col':0, 'row':0} %}
+					<tr>
+					{% for story in stories %}
+					story
+						{% if vars.col == 4 %}
+							{% if vars.update({'col': 0}) %} {% endif %}
+							{% set rup = vars.row + 1 %}
+							{% if vars.update({'row': rup}) %} {% endif %}
+						</tr><tr>
+						{% endif %}
+						<!-- this is where info is displayed -->
+						<td>{{ story }}</td> <!-- I need to fix this up but for now just appreciate the jinja -->
+						{% set cup = vars.col + 1 %}
+						{% if vars.update({'col': cup}) %} {% endif %}
+					{% endfor %}
+				</tr>
+				{% endif %}
+			</tbody>
+
+		</table>
 	</body>
 </html>
 
