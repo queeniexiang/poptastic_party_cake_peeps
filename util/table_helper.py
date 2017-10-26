@@ -25,7 +25,14 @@ def add_user(username, password, first_name, last_name, email):
     command = "INSERT INTO users VALUES('"+ username + "','" + passw + "','" + first_name + "', '" + last_name + "','" + email + "', none)"
     c.execute(command)
     return True
-
+####################
+def verify_user(username, password):
+    userpass = dict_user_pass()
+    if !(username in userpass):
+        return False
+    if(userpass[username] == password):
+        return True
+    return False 
 
 
 #==========================================================
