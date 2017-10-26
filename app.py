@@ -10,17 +10,8 @@ app.secret_key = os.urandom(32)
 def landing():
 	print session;
 	if "username" in session:
-		return redirect("/")
+		return redirect("/listofstories")
 	return render_template("index.html")
-
-'''@app.route("/loggedin")
-def pullup():
-	print session;
-	print "WE MADE IT \n\n"
-	if "username" in session:
-		return render_template("ushallpass.html", username = session["username"])
-	else:
-		return redirect("/")'''
 
 
 #Where all the fun login stuff happens
@@ -29,23 +20,24 @@ def logged(user = ""):
         #This part checks if your user+pw is correct.
         if user == "":
 		username = request.args["user"].lower()
-		password = request.args["passo"]
+		password = request.args["password"]
 		print "BOUTTA CHECK THAT USERNAME \n\n"
-		if username == "skrt":
+		if username == "test" #in the database: 
 			print "THE USERNAME HAS BEEN VALIDATED \n\n"
-			if password == "Carrot":
-				print "THE PASSWORD HAS BEEN VALIDATED \n\n"
-				session["username"] = "skrt"
+			if password == "abc123":  #in the database: 
+			        print "THE PASSWORD HAS BEEN VALIDATED \n\n"
+				session["username"] = #user_username
 				print "Does we makes it?\n\n"
-				return redirect("/")
+				return redirect("/listofstories")
 			else:
-				return "no"
+			        flash("Incorrect password, please try again.") 
 		else:
-			return "no"
+			flash("Incorrect username, please try again.") 
 
 	#If you already have a username, it brings you here
-	else:
-		return render_template("ushallpass.html", username = session["username"])
+	#WHAT DOES THIS DO
+        else:
+		return redirect("/listofstories") 
 
 @app.route('/shainatesting')
 def testing():
@@ -60,14 +52,23 @@ def testing():
 
 @app.route("/register")
 def register():
-    #if username in session:
-        #redirect("/")
-    #database stuff
-    return render_template("register.html")
+        #If form has been submited:
+        #blah
+
+        #If registering has been successful:
+        #Return /listofstories
+
+        #Else:
+        #return render_template("register.html")
 
 '''@app.route("/wrong")
 def u_messed_up():
     return render_template("errorpage.html", bad = request.args.get("err"))'''
+
+app.route("/listofstories")
+def homepage():
+        return render_template('listofstories.html', stories=[1,2,3,4,5,6,7,8,9])
+
 
 if __name__ == "__main__":
     app.debug = True
