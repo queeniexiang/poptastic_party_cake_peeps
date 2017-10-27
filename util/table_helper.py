@@ -13,10 +13,10 @@ def setup():
 #c = db.cursor()    #facilitate db ops
 ######################
 #dict builder
-def dict_user_pass():
-    f="/data/bestsite.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
+def dict_user_pass(c):
+    #f="/data/bestsite.db"
+    #db = sqlite3.connect(f)
+    #c = db.cursor()
     q = "SELECT * FROM users"
     foo = c.execute(q)
     users = {}
@@ -24,15 +24,15 @@ def dict_user_pass():
         user = bar[0]
         password = bar[1]
         users[user] = password;
-    db.commit()
-    db.close()
+    #db.commit()
+    #db.close()
     return users
 ##################
 def add_user(username, password, first_name, last_name, email):
     f="bestsite.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    userpass = dict_user_pass()
+    userpass = dict_user_pass(c)
     passw = sha1(password).hexdigest()
     if (username in userpass):
         return False
