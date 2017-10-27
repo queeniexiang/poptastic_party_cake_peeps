@@ -66,7 +66,7 @@ def register_redirect():
     rpasso = request.form["repeatpasso"]
 	#Still needs work
     if add_user(user, passo, 'first_name', 'last_name', email):
-		return redirect("/register")
+		return redirect("/homepage")
     else:
 		return 'something went wrong'
     return user + ", " + email + ", " + passo + ", " + rpasso
