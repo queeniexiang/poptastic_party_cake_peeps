@@ -58,6 +58,14 @@ def readstory(updates=None):
     return render_template('read.html',title="this is a title", updates=updates)
 
 #This is the function for validating the new user
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+	if request.method=="POST":
+		return request.form['user']
+	return render_template('register.html')
+
+
 @app.route('/register_redirect', methods=["GET", "POST"])
 def register_redirect():
     user = request.form["user"]
@@ -66,28 +74,12 @@ def register_redirect():
     rpasso = request.form["repeatpasso"]
 	#Still needs work
     if add_user(user, passo, 'first_name', 'last_name', email):
-		return redirect("/homepage")
+            flash('Success! Redirecting to the home page') 
+            return redirect("/homepage")
     else:
-		return 'something went wrong'
+            flash('Error, please try again. Redirecting to the register page') 
+	    return render_template('register.html') 
     return user + ", " + email + ", " + passo + ", " + rpasso
-
-@app.route("/register", methods=["GET", "POST"])
-def register():
-	if request.method=="POST":
-		return request.form['user']
-	return render_template('register.html')
-        #If form has been submited:
-        #blah
-
-        #If registering has been successful:
-        #Return /listofstories
-
-        #Else:
-        #return render_template("register.html")
-
-#'''@app.route("/wrong")
-#def u_messed_up():
-#    return render_template("errorpage.html", bad = request.args.get("err"))'''
 
 @app.route("/homepage")
 def homepage():
