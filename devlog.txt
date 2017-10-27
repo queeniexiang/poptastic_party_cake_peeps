@@ -7,6 +7,9 @@ Updated the README with more specific description of our project and added launc
 shainaP -- 2017-10-26 12:19
 Gave a basic (ugly) html to three pages: read.html, success.html, and listofstories. success.html is fairly simple and takes in an action in the form of a string (either "updated" or "created") and tells you your action is successful. read.html and listofstories.html each take in a dictionary (the list of all changes for read.html and all of the most recent changes of all stories for listofstories.html) and display either an entire story or a list of stories, respectively.
 
+shifrinaD
+Created database. Started working on methods to register & verify users.
+
 xiangQ — 2017-10-26 13:16
 Added clarity and fixed redirect routes
 
