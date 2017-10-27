@@ -1,14 +1,14 @@
 xiangQ, shifrinaD, petersS -- 2017-10-24 13:04
 Created app.py and started creating the welcome page, log-in page, and register page (for new users).
 
-xiangQ — 2017-10-25 21:30 
+xiangQ — 2017-10-25 21:30
 Updated the README with more specific description of our project and added launch instructions.
 
-shainaP -- 2017-10-26 12:19 
+shainaP -- 2017-10-26 12:19
 Gave a basic (ugly) html to three pages: read.html, success.html, and listofstories. success.html is fairly simple and takes in an action in the form of a string (either "updated" or "created") and tells you your action is successful. read.html and listofstories.html each take in a dictionary (the list of all changes for read.html and all of the most recent changes of all stories for listofstories.html) and display either an entire story or a list of stories, respectively.
 
 xiangQ — 2017-10-26 13:16
 Added clarity and fixed redirect routes
 
-
-
+shainaP -- 2016-10-27 0:49
+Fixed some bugs/minor errors, made a fairly unsuccessful attempt to get util/table_helper to work (need to work on this later), added some more routes, and added very uncomplex pages for newstory.html and update.html. Neither has any database integration yet, but both rely on it.
