@@ -22,4 +22,5 @@ Added some flash messages
 xiangQ -- 2017-10-27 20:46
 1. Made the previous flash messages work for the sign-in page. If username is incorrect, flash "bad username". If password is incorrect, flash "bad password".
 2. Made the redirect routes work
-3. Created the homepage.html 
+3. Created the homepage.html
+4. Linked user options (read, create, or update story) to the homepage
