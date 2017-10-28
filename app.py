@@ -104,7 +104,7 @@ def homepage():
         return render_template('homepage.html')
 
 
-'''
+
 #IF user chooses to read stories:
 @app.route("/listofstories")
 def read():
@@ -123,8 +123,9 @@ def updatestory():
 		'text':'Ipsum tempor elit culpa cupidatat quis et laborum tempor nostrud voluptate nisi cupidatat. Ad fugiat sit laborum in consectetur ullamco ut esse. Ut eiusmod aliquip minim commodo id deserunt officia magna anim ut veniam ipsum laborum. Lorem duis ea elit ullamco sint est laborum enim sint.'
 	}
 	if request.method == "POST":
-		return render_template('success.html', whathappened="updated")	return render_template("update.html",story=samplestory)
-'''
+		return render_template('success.html', whathappened="updated")
+        return render_template("update.html",story=samplestory)
+
 
 if __name__ == "__main__":
     app.debug = True
