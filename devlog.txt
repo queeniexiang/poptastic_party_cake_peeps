@@ -17,4 +17,9 @@ shainaP -- 2017-10-27 0:49
 Fixed some bugs/minor errors, made a fairly unsuccessful attempt to get util/table_helper to work (need to work on this later), added some more routes, and added very uncomplex pages for newstory.html and update.html. Neither has any database integration yet, but both rely on it.
 
 xiangQ —- 2017-10-27 10:48
-Added some flash messages 
+Added some flash messages
+
+xiangQ -- 2017-10-27 20:46
+1. Made the previous flash messages work for the sign-in page. If username is incorrect, flash "bad username". If password is incorrect, flash "bad password".
+2. Made the redirect routes work
+3. Created the homepage.html 
