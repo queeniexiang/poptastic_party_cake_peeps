@@ -1,5 +1,5 @@
-from flask import Flask, session, url_for, redirect, render_template, request
-from util.table_helper import *
+from flask import Flask, flash, session, url_for, redirect, render_template, request
+#from util.table_helper import *
 import sqlite3
 import os
 
@@ -14,32 +14,49 @@ def landing():
 		return redirect("/homepage")
 	return render_template("index.html")
 
-
+#Dasha put your checking code here:
+'''
+def auth(user,passo,upass):
+	stat_code -1 = bad username
+	stat_code 0 = bad password
+	stat_code 1 = good
+	
+	stat_code = -1
+	if user in upass:
+		stat_code+=1
+		if passo == upass[user]:
+			stat_code+=1
+	return stat_code
+'''
+        
 #Where all the fun login stuff happens
 @app.route("/loggit")
-def logged(user = ""):
+def logged():
+        
         #This part checks if your user+pw is correct.
-        if user == "":
+        if "username" in request.args and session["username"] == "test":
+                return redirect("/homepage")
+
+        username = ""
+        password = ""
+
+        if "user" in request.args and "passo" in request.args:
 		username = request.args["user"].lower()
-		password = request.args["password"]
-		print "BOUTTA CHECK THAT USERNAME \n\n"
-		if username == "test": #in the database:
-			print "THE USERNAME HAS BEEN VALIDATED \n\n"
-			if password == "abc123":  #in the database:
-			        print "THE PASSWORD HAS BEEN VALIDATED \n\n"
-				session["username"] = user_username
-				print "Does we makes it?\n\n"
-				return redirect("/homepage")
-			else:
-			        flash("Incorrect password, please try again.")
-		else:
-			flash("Incorrect username, please try again.")
+		password = request.args["passo"]
+                
+	if  username != "test": #auth(username,password,userpass)==-1:
+		flash("Bad username!")			
+        if password != "abc123": #auth(username,password,userpass)==0:
+		flash("Bad password!")
+	if username == "test" and password == "abc123": #auth(username,password,userpass)==1:
+		return redirect("/homepage")
 
-	#If you already have a username, it brings you here
-	#WHAT DOES THIS DO
-        else:
-		return redirect("/listofstories")
+        return render_template("index.html")
+	#return render_template("loggedin.html")
 
+              
+
+'''
 @app.route('/shainatesting') #Phasing this out for actual routes
 def testing():
 	testmode = "list"
@@ -80,13 +97,14 @@ def register_redirect():
             flash('Error, please try again. Redirecting to the register page') 
 	    return render_template('register.html') 
     return user + ", " + email + ", " + passo + ", " + rpasso
+'''
 
 @app.route("/homepage")
 def homepage():
-	pass
-        #return render_template('homepage.html')
+        return render_template('homepage.html')
 
 
+'''
 #IF user chooses to read stories:
 @app.route("/listofstories")
 def read():
@@ -105,8 +123,8 @@ def updatestory():
 		'text':'Ipsum tempor elit culpa cupidatat quis et laborum tempor nostrud voluptate nisi cupidatat. Ad fugiat sit laborum in consectetur ullamco ut esse. Ut eiusmod aliquip minim commodo id deserunt officia magna anim ut veniam ipsum laborum. Lorem duis ea elit ullamco sint est laborum enim sint.'
 	}
 	if request.method == "POST":
-		return render_template('success.html', whathappened="updated")
-	return render_template("update.html",story=samplestory)
+		return render_template('success.html', whathappened="updated")	return render_template("update.html",story=samplestory)
+'''
 
 if __name__ == "__main__":
     app.debug = True
