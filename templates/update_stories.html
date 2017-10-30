@@ -1,0 +1,13 @@
+<html>
+  <center>
+    <h1>
+      Which story would you like to add to?
+    </h1>
+
+    <body>
+      <form action = "/updatestories/<storyname>">
+      {% for title in stories %}
+      <input type = "radio" name = "story_name" value = {{title}}> {{title}} <br>
+      {% endfor %}
+    </body>
+             

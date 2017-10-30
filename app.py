@@ -149,8 +149,13 @@ def createstory():
 			return render_template('success.html',whathappened="failed to create")
 	return render_template("newstory.html")
 
+@app.route('/updatestory')
+def updatestory:
+        stories = table_helper.get_all_stories()
+        return render_template("update.html", stories = stories) 
+        
 @app.route('/updatestory/<storyname>')
-def updatestory(storyname):
+def updatestory_story(storyname):
 	stories = table_helper.get_all_stories()
 	use = None
 	for possible in stories:
