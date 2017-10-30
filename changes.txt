@@ -1,0 +1,5 @@
+The story database now looks like this:
+wiki_name|content|updates|contributers
+Contributers is a list and updates is a dict (both converted to and from a string with json)
+
+Contrubuters is misspelled but that's ok
