@@ -11,7 +11,7 @@ def setup():
 ######################
 #user dict builder
 def dict_user_pass():
-    f="bestsite.db"
+    f="util/bestsite.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT * FROM users"
@@ -29,7 +29,7 @@ def dict_user_pass():
 
 #story dict builder
 def dict_story():
-    f="bestsite.db"
+    f="util/bestsite.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT * FROM stories"
@@ -127,13 +127,13 @@ def contributions(user):
         return userpass[user]['contributions']
 
 #testing zone
-
+'''
 print(workingversion("My life"))
 print(contributors("My life"))
 print(lastupdate("My life"))
 print(content("My life"))
 print(contributions('dasha'))
-    
+'''
 
 
 #==========================================================
