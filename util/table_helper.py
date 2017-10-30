@@ -208,3 +208,4 @@ def update_story(title, user, update):
 	c.execute(override_command, insert)
 	db.commit()
 	db.close()
+        return True 

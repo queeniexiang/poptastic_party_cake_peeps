@@ -47,6 +47,10 @@ def logged():
               session["username"] = username
 	      return redirect("/homepage")
 
+      	if "submit" in request.args and request.args["submit"] == "Logout":
+		session["username"] = ""
+		flash("You logged out")
+
         return render_template("index.html")
 	#return render_template("loggedin.html")
 
@@ -150,9 +154,9 @@ def createstory():
 	return render_template("newstory.html")
 
 @app.route('/updatestory')
-def updatestory:
+def updatestory():
         stories = table_helper.get_all_stories()
-        return render_template("update.html", stories = stories) 
+        return render_template("update_stories.html", stories = stories) 
         
 @app.route('/updatestory/<storyname>')
 def updatestory_story(storyname):
