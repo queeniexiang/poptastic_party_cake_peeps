@@ -5,13 +5,15 @@
 		<title>Someone else's story but it's better</title>
 	</head>
 	<body>
+		<a href="/">Home</a>
 		<h1>The story so far</h1>
-		<h2>{{ story.writer }} wrote</h2>
-		<p>{{ story.text }}</p>
+		<h2>{{ writer }} wrote</h2>
+		<p>{{ text }}</p>
 		<h1>Your addition</h1>
-		<form class="" action="/updatestory" method="post">
+		<form class="" action="/updatestory_redirect" method="post">
 			<textarea name="update" rows="8" cols="80"></textarea>
 			<input type="submit" name="submit" value="submit">
+			<input type="hidden" name="title" value="{{ title }}">
 		</form>
 	</body>
 </html>

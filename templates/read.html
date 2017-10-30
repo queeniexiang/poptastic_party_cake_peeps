@@ -5,11 +5,14 @@
 		<title>{{ title }}</title>
 	</head>
 	<body>
+		<a href="/">Home</a>
 		<h1>{{ title }}</h1>
 		{% for update in updates %}
 			<h2>{{ update.user }}:</h2>
 			<p>{{ update.text }}</p>
 		{% endfor %}
+		<br>
+		<a href="{{ '/updatestory/%s'%title }}">Contribute to this story.</a>
 	</body>
 </html>
 

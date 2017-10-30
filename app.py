@@ -21,13 +21,13 @@ def landing():
 def homepage():
         return render_template('homepage.html')
 
-        
+
 ###############################################
 #LOGGING IN
 ###############################################
 @app.route("/loggit")
 def logged():
-        
+
         #This part checks if your user+pw is correct.
         if "username" in request.args and session["username"] == "test":
                 return redirect("/homepage")
@@ -39,7 +39,8 @@ def logged():
 		username = request.args["user"].lower()
 		password = request.args["passo"]
 	if not table_helper.verify_user(username, password): #auth(username,password,userpass)==-1:
-		flash("Bad info!")			
+		#flash("Bad info!")
+		pass #I had to comment it out becaus it was showing up when the user first gets redirected
        # if password != "abc123": #auth(username,password,userpass)==0:
 	#	flash("Bad password!")
 	if (table_helper.verify_user(username, password)):
@@ -70,12 +71,12 @@ def register_redirect():
     rpasso = request.form["repeatpasso"]
 	#Still needs work
     if table_helper.add_user(user, passo, rpasso, first_name, last_name , email):
-            flash('Success! Redirecting to the home page') 
-            return redirect("/homepage")
+            flash('Success! Redirecting to the home page! Please log in to your new account!')
+            return redirect("/loggit")
     else:
-            flash('Error, please try again. Redirecting to the register page') 
-	    return render_template('register.html') 
-    return user + ", " + email + ", " + passo + ", " + rpasso              
+            flash('Error, please try again. Redirecting to the register page')
+	    return render_template('register.html')
+    return user + ", " + email + ", " + passo + ", " + rpasso
 
 
 ###############################################
@@ -85,7 +86,9 @@ def register_redirect():
 #IF user chooses to read stories:
 @app.route("/listofstories")
 def read():
-        return render_template('listofstories.html', stories=[1,2,3,4,5,6,7,8,9])
+	stories = table_helper.get_all_stories()
+	storylist = []
+	return render_template('listofstories.html', stories=stories)
 ###############################################
 #UNFINISHED LAND
 ###############################################
@@ -101,36 +104,78 @@ def testing():
 		return render_template('listofstories.html', stories=[1,2,3,4,5,6,7,8,9])
 	return "nope"
 '''
-@app.route('/readstory')
-def readstory(updates=None):
-    if updates == None:
-		updates = [{'user':"Caligula", 'text': 'idk roman emperors are cool'}, {'user':'alexander', 'text':'he was kind of great'}]
-    return render_template('read.html',title="this is a title", updates=updates)
+@app.route('/readstory/<story>')
+def readstory(story):
+	stories = table_helper.get_all_stories()
+	use = ""
+	for possible in stories:
+		if possible['title'] == story:
+			use = possible
+	#return use.content
+	lcpre = use['contributors'] #table_helper.string_to_dict(use['contributors'])
+	lc = table_helper.string_to_dict(str(lcpre))
+	#eturn lc
+	#use['updates2'] = '{"test1":"test1s contribution to society","test2":"im out of clever ideas"}'
+	updates = []
+	for contr in lc:
+		update = {}
+		update['user'] = contr
+		update['text'] = table_helper.string_to_dict(use['updates'])[contr]
+		updates.append(update)
+	#return update['user']
+	return render_template('read.html',title=story, updates=updates)
 
 #This is the function for validating the new user
 
-'''
+
 #IF user chooses to read stories:
-@app.route("/listofstories")
-def read():
-        return render_template('listofstories.html', stories=[1,2,3,4,5,6,7,8,9])
+#@app.route("/listofstories")
+#def read():
+#        return render_template('listofstories.html', stories=[1,2,3,4,5,6,7,8,9])
 
 @app.route('/createstory',methods=["GET", "POST"])
 def createstory():
 	if request.method == "POST":
-		return render_template('success.html',whathappened="created")
+		wikiname = request.form["title"]
+		content = request.form["text"]
+		user = ""
+		if "username" in session:
+			user = session["username"]
+		else:
+			user = "user"
+		if table_helper.add_story(wikiname, content, user):
+			return render_template('success.html',whathappened="created")
+		else:
+			return render_template('success.html',whathappened="failed to create")
 	return render_template("newstory.html")
 
-@app.route('/updatestory', methods=["GET", "POST"]) #I didn't copy create, I just rewrote it
-def updatestory():
-	samplestory = {
-		'title':'once upon a time',
-		'text':'Ipsum tempor elit culpa cupidatat quis et laborum tempor nostrud voluptate nisi cupidatat. Ad fugiat sit laborum in consectetur ullamco ut esse. Ut eiusmod aliquip minim commodo id deserunt officia magna anim ut veniam ipsum laborum. Lorem duis ea elit ullamco sint est laborum enim sint.'
-	}
-	if request.method == "POST":
-		return render_template('success.html', whathappened="updated")
-        return render_template("update.html",story=samplestory)
-'''
+@app.route('/updatestory/<storyname>')
+def updatestory(storyname):
+	stories = table_helper.get_all_stories()
+	use = None
+	for possible in stories:
+		if possible['title'] == storyname:
+			use = possible
+	contributors = table_helper.string_to_dict(use['contributors'])
+	updates = table_helper.string_to_dict(use['updates'])
+	lastc = contributors[len(contributors)-1]
+	#return lastc
+	last = updates[lastc]
+	return render_template("update.html", writer=lastc, text=last, title=storyname)
+
+@app.route('/updatestory_redirect', methods=["POST"])
+def updatestory_redirect():
+	title = request.form['title']
+	update = request.form['update']
+	user = ""
+	if "username" in session:
+		user = session["username"]
+	else:
+		user = "user"
+	if table_helper.update_story(title, user, update):
+		return render_template("success.html", whathappened="update")
+	else:
+		return render_template("success.html", whathappened="failed to update")
 
 if __name__ == "__main__":
     app.debug = True
